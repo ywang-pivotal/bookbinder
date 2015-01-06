@@ -1,6 +1,7 @@
 require 'ruby-progressbar'
 require 'bookbinder/shell_out'
 require 'git'
+require_relative 'git_client'
 
 module Bookbinder
   class GitHubRepository

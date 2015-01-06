@@ -1,3 +1,7 @@
+require 'middleman-core'
+require 'middleman-core/cli'
+require 'middleman-core/profiling'
+
 class Middleman::Cli::BuildAction
   def handle_error(file_name, response, e=Thor::Error.new(response))
     our_errors = [GitClient::TokenException,

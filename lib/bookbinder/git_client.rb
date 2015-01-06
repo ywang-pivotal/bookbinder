@@ -1,3 +1,5 @@
+require 'octokit'
+
 class GitClient < Octokit::Client
   class GitClient::TokenException < StandardError;
   end
