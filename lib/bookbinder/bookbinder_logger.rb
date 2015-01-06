@@ -1,3 +1,5 @@
+require 'ansi'
+
 class String
   include ANSI::Mixin
 end
