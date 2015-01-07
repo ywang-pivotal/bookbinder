@@ -1,3 +1,5 @@
+require 'nokogiri'
+
 module Bookbinder
   class SitemapGenerator
     def generate(links, sitemap_file)
