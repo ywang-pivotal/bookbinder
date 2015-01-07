@@ -1,6 +1,7 @@
 require 'middleman-core'
 require 'middleman-core/cli'
 require 'middleman-core/profiling'
+require_relative 'code_example'
 
 class Middleman::Cli::BuildAction
   def handle_error(file_name, response, e=Thor::Error.new(response))

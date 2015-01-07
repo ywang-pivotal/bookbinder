@@ -1,4 +1,6 @@
-require 'bookbinder/directory_helpers'
+require_relative '../directory_helpers'
+require_relative '../spider'
+require_relative '../book'
 require_relative 'naming'
 
 module Bookbinder

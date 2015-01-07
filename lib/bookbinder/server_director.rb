@@ -1,3 +1,5 @@
+require 'popen4'
+
 module Bookbinder
   class ServerDirector
     def initialize(logger, directory: nil, port: 41722)

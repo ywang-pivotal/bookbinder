@@ -1,5 +1,9 @@
+require 'anemone'
 require 'pty'
 require_relative 'css_link_checker'
+require_relative 'sieve'
+require_relative 'stabilimentum'
+require_relative 'sitemap_generator'
 
 module Bookbinder
   class Spider
