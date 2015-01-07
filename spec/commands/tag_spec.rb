@@ -32,7 +32,7 @@ module Bookbinder
 
     context 'when no tag is supplied' do
       it 'raises a Cli::InvalidArguments error' do
-        expect { Commands::Tag.new(logger, configuration_fetcher).run [] }.to raise_error(Cli::InvalidArguments)
+        expect { Commands::Tag.new(logger, configuration_fetcher).run [] }.to raise_error(CliError::InvalidArguments)
       end
     end
   end
