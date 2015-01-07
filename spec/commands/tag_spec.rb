@@ -1,7 +1,15 @@
-require 'spec_helper'
+require_relative '../../lib/bookbinder/commands/tag'
+require_relative '../../lib/bookbinder/git_client'
+require_relative '../../lib/bookbinder/configuration'
+
+require_relative '../helpers/middleman'
+require_relative '../helpers/nil_logger'
+require_relative '../helpers/tmp_dirs'
 
 module Bookbinder
   describe Commands::Tag do
+    include SpecHelperMethods
+
     include_context 'tmp_dirs'
 
     let(:book_sha) { 26.times.map { (65 + rand(26)).chr }.join  }
