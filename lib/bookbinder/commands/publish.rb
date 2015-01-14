@@ -23,6 +23,10 @@ module Bookbinder
       def run(cli_arguments, git_accessor=Git)
         raise CliError::InvalidArguments unless arguments_are_valid?(cli_arguments)
         @git_accessor = git_accessor
+        @section_repository = Repositories::SectionRepository.new(@logger,
+                                                                 store: {},
+                                                                 git_accessor: git_accessor)
+        @middleman_runner = MiddlemanRunner.new(logger)
 
         final_app_dir = File.absolute_path('final_app')
         bind_book(cli_arguments, final_app_dir)
@@ -49,7 +53,8 @@ module Bookbinder
       end
 
       def publisher_for_dir(final_app_dir)
-        Publisher.build(@logger, final_app_dir, @git_accessor)
+        spider = Spider.new(logger, app_dir: final_app_dir)
+        Publisher.build(@logger, @git_accessor, @section_repository, spider, @middleman_runner)
       end
 
       def output_directory_paths(location, final_app_dir)

@@ -9,23 +9,22 @@ module Bookbinder
     include DirectoryHelperMethods
 
     class << self
-      def build(logger, final_app_dir, git_accessor)
+      def build(logger, git_accessor, section_repository, spider, middleman_runner)
         Publisher.new(logger,
-                      Spider.new(logger, app_dir: final_app_dir),
-                      MiddlemanRunner.new(logger),
-                      git_accessor)
+                      spider,
+                      middleman_runner,
+                      git_accessor,
+                      section_repository)
       end
     end
 
-    def initialize(logger, spider, static_site_generator, git_accessor)
+    def initialize(logger, spider, static_site_generator, git_accessor, section_repository)
       @gem_root = File.expand_path('../../../', __FILE__)
       @logger = logger
       @spider = spider
       @static_site_generator = static_site_generator
       @git_accessor = git_accessor
-      @section_repository = Repositories::SectionRepository.new(@logger,
-                                                                store: {},
-                                                                git_accessor: git_accessor)
+      @section_repository = section_repository
     end
 
     def publish(cli_options, output_paths, publish_config)
