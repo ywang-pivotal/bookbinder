@@ -19,7 +19,8 @@ module Bookbinder
     }
 
     describe '#subnav_template' do
-      let(:repo) { Section.new(double(:repo), subnav_template_name, 'path/to/repository') }
+      let(:vcs_accessor) { double('vcs_accessor', open: nil) }
+      let(:repo) { Section.new(double(:repo), subnav_template_name, 'path/to/repository', vcs_accessor) }
 
       context 'when the incoming template does not look like a partial file' do
         let(:subnav_template_name) { 'my_template' }
@@ -49,11 +50,17 @@ module Bookbinder
     describe '#get_modification_date_for' do
       let(:local_repo_dir) { '/some/dir' }
       let(:repo_name) { 'farm/my_cow_repo' }
+      let(:vcs_accessor) { double('vcs_accessor') }
       let(:repo) { GitHubRepository.new(full_name: repo_name, local_repo_dir: local_repo_dir) }
-      subject(:section) { Section.new(repo, 'my_template', 'path/to/farm') }
+      subject(:section) { Section.new(repo, 'my_template', 'path/to/farm', vcs_accessor) }
       let(:file) { 'some-file' }
       let(:git_base_object) { double Git::Base }
       let(:time) { Time.new(2011, 1, 28) }
+
+      it 'delegates to the vcs_accessor' do
+        expect(vcs_accessor).to receive(:last_modified_date).with(local_repo_dir, file)
+        section.get_modification_date_for(file: file, full_path: local_repo_dir)
+      end
 
       context 'when publishing from local' do
         before do
